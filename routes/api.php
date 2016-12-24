@@ -15,4 +15,5 @@ use Illuminate\Http\Request;
 
 Route::post('/v1/topic/suggest', 'SuggestTopicsController@create');
 Route::post('/v1/topic', 'TopicsController@create')->middleware('admin:api');
-Route::post('/v1/episode', 'EpisodeController@create')->middleware('admin:api');
+Route::patch('/v1/topic/{topic}', 'TopicsController@update')->middleware('admin:api');
+Route::post('/v1/episode', 'EpisodesController@create')->middleware('admin:api');

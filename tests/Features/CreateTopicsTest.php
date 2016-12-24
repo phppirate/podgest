@@ -35,7 +35,7 @@ class CreateTopicsTest extends TestCase
     {
         $topic = [
             'title' => "Is Foo a good thing?",
-            'body' => "A little about foo",
+            'description' => "A little about foo",
         ];
 
         $this->json("post", "/api/v1/topic?api_token=" . $this->apiGateway->getValidTestToken(), $topic);
@@ -62,7 +62,7 @@ class CreateTopicsTest extends TestCase
     {
         $topic = [
             'title' => "Is Foo a good thing?",
-            'body' => "A little about foo"
+            'description' => "A little about foo"
         ];
 
         $this->json("post", "/api/v1/topic?api_token=". $this->apiGateway->getValidTestToken(), $topic);

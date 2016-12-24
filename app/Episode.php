@@ -9,4 +9,9 @@ class Episode extends Model
     //
     protected $guarded = [];
     protected $dates = ['air_date'];
+
+    public function topics()
+    {
+        return $this->hasMany(Topic::class);
+    }
 }

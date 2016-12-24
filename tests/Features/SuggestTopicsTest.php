@@ -13,7 +13,7 @@ class SuggestTopicsTest extends TestCase
     {
         $topic = [
             'title' => "Is Foo a good thing?",
-            'body' => "A little about foo"
+            'description' => "A little about foo"
         ];
 
         $this->post("/api/v1/topic/suggest", $topic);
@@ -21,7 +21,7 @@ class SuggestTopicsTest extends TestCase
         $this->assertResponseStatus(201);
         $this->assertNotNull(Topic::first());
         $this->assertEquals('Is Foo a good thing?', Topic::first()->title);
-        $this->assertEquals('A little about foo', Topic::first()->body);
+        $this->assertEquals('A little about foo', Topic::first()->description);
     }
 
     /** @test */
@@ -29,7 +29,7 @@ class SuggestTopicsTest extends TestCase
     {
         $topic = [
             'title' => "Is Foo a good thing?",
-            'body' => "A little about foo"
+            'description' => "A little about foo"
         ];
 
         $this->post("/api/v1/topic/suggest", $topic);
@@ -45,7 +45,7 @@ class SuggestTopicsTest extends TestCase
     {
         $topic = [
             'title' => "",
-            'body' => ""
+            'description' => ""
         ];
 
         $this->json("post", "/api/v1/topic/suggest", $topic);
