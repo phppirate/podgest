@@ -13,6 +13,5 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
+Route::post('/v1/topic/suggest', 'SuggestTopicsController@create');
+Route::post('/v1/topic', 'TopicsController@create')->middleware('admin:api');
