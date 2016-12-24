@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTopicsTable extends Migration
+class CreateEpisodesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateTopicsTable extends Migration
      */
     public function up()
     {
-        Schema::create('topics', function (Blueprint $table) {
+        Schema::create('episodes', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('number')->default(0);
             $table->string('title');
-            $table->text('body')->nullable();
-            $table->string('status')->nullable();
+            $table->text('description');
+            $table->datetime('air_date');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateTopicsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('topics');
+        Schema::dropIfExists('episodes');
     }
 }

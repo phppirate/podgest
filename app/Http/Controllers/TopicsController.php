@@ -10,6 +10,9 @@ class TopicsController extends Controller
     //
     public function create(Request $request)
     {
+        $this->validate($request, [
+            'title' => 'required'
+        ]);
     	$topic = new Topic($request->only(['title', 'body']));
     	$topic->status = 'approved';
     	$topic->save();

@@ -11,12 +11,17 @@ class CreateTopicsTest extends TestCase
 {
     use DatabaseMigrations;
 
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->apiGateway = new FakeApiGateway();
+        $this->app->instance(ApiGateway::class, $this->apiGateway);
+    }
+
     /** @test */
     function cannot_create_topic_without_valid_api_token()
     {
         // Arrange
-        $apiGateway = new FakeApiGateway();
-        $this->app->instance(ApiGateway::class, $apiGateway);
         $topic = [];
         // Act
         $this->json("post", "/api/v1/topic", $topic);
@@ -28,32 +33,39 @@ class CreateTopicsTest extends TestCase
     /** @test */
     function admin_can_create_a_topic()
     {
-        $apiGateway = new FakeApiGateway();
-        $this->app->instance(ApiGateway::class, $apiGateway);
-
         $topic = [
             'title' => "Is Foo a good thing?",
             'body' => "A little about foo",
         ];
 
-        $this->json("post", "/api/v1/topic?api_token=" . $apiGateway->getValidTestToken(), $topic);
+        $this->json("post", "/api/v1/topic?api_token=" . $this->apiGateway->getValidTestToken(), $topic);
 
         $this->assertResponseStatus(201)
             ->assertEquals('approved', Topic::first()->status);
     }
 
     /** @test */
+    function admin_cannot_create_topic_with_empty_title()
+    {
+        // Arrange
+        $topic = [
+            'title' => "",
+        ];
+        // Act
+        $this->json("post", "/api/v1/topic?api_token=". $this->apiGateway->getValidTestToken(), $topic);
+        // Assert 
+        $this->assertResponseStatus(422);
+    }
+
+    /** @test */
     function successful_topic_creation_returns_id()
     {
-        $apiGateway = new FakeApiGateway();
-        $this->app->instance(ApiGateway::class, $apiGateway);
-
         $topic = [
             'title' => "Is Foo a good thing?",
             'body' => "A little about foo"
         ];
 
-        $this->json("post", "/api/v1/topic?api_token=". $apiGateway->getValidTestToken(), $topic);
+        $this->json("post", "/api/v1/topic?api_token=". $this->apiGateway->getValidTestToken(), $topic);
 
         $this->seeJsonSubset([
             'id' => 1,

@@ -15,3 +15,4 @@ use Illuminate\Http\Request;
 
 Route::post('/v1/topic/suggest', 'SuggestTopicsController@create');
 Route::post('/v1/topic', 'TopicsController@create')->middleware('admin:api');
+Route::post('/v1/episode', 'EpisodeController@create')->middleware('admin:api');
