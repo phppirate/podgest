@@ -17,4 +17,15 @@ class SuggestTopicsController extends Controller
     		'message' => 'Topic Successfully Suggested'
 		], 201);
     }
+
+    public function update(Topic $topic, Request $request)
+    {
+        if($topic->user_id != $request->user()->id){
+            return response()->json([
+                'message' => 'You cannot edit topics you did not create.'
+            ], 422);
+        }
+        $topic->update($request->only('title', 'description'));
+        return response()->json([], 200);
+    }
 }
