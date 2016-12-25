@@ -37,7 +37,7 @@ class UpdateTopicStatisTest extends TestCase
         // arrange
         $topic = factory(Topic::class)->create(['status' => null]);
         // act
-        $this->json('patch', '/api/v1/topic/' . $topic->id . '?api_token=' . $this->apiGateway->getValidTestToken(), [
+        $this->json('patch', '/api/v1/topic/' . $topic->id . '?api_token=' . $this->apiGateway->getValidTestAdminToken(), [
         	'status' => 'accepted'
     	]);
         // assert
@@ -51,7 +51,7 @@ class UpdateTopicStatisTest extends TestCase
         // arrange
         $topic = factory(Topic::class)->create(['status' => null]);
         // act
-        $this->json('patch', '/api/v1/topic/' . $topic->id . '?api_token=' . $this->apiGateway->getValidTestToken(), [
+        $this->json('patch', '/api/v1/topic/' . $topic->id . '?api_token=' . $this->apiGateway->getValidTestAdminToken(), [
         	'status' => 'foobar'
     	]);
         // assert

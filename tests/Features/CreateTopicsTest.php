@@ -38,7 +38,7 @@ class CreateTopicsTest extends TestCase
             'description' => "A little about foo",
         ];
 
-        $this->json("post", "/api/v1/topic?api_token=" . $this->apiGateway->getValidTestToken(), $topic);
+        $this->json("post", "/api/v1/topic?api_token=" . $this->apiGateway->getValidTestAdminToken(), $topic);
 
         $this->assertResponseStatus(201)
             ->assertEquals('approved', Topic::first()->status);
@@ -52,7 +52,7 @@ class CreateTopicsTest extends TestCase
             'title' => "",
         ];
         // Act
-        $this->json("post", "/api/v1/topic?api_token=". $this->apiGateway->getValidTestToken(), $topic);
+        $this->json("post", "/api/v1/topic?api_token=". $this->apiGateway->getValidTestAdminToken(), $topic);
         // Assert 
         $this->assertResponseStatus(422);
     }
@@ -65,7 +65,7 @@ class CreateTopicsTest extends TestCase
             'description' => "A little about foo"
         ];
 
-        $this->json("post", "/api/v1/topic?api_token=". $this->apiGateway->getValidTestToken(), $topic);
+        $this->json("post", "/api/v1/topic?api_token=". $this->apiGateway->getValidTestAdminToken(), $topic);
 
         $this->seeJsonSubset([
             'id' => 1,

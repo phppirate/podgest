@@ -29,7 +29,7 @@ class CreateEpisodesTest extends TestCase
         	'air_date' => $date
         ];
         // act
-        $this->json('post', '/api/v1/episode?api_token=' . $this->apiGateway->getValidTestToken(), $episode);
+        $this->json('post', '/api/v1/episode?api_token=' . $this->apiGateway->getValidTestAdminToken(), $episode);
         // assert
         $this->assertResponseStatus(201);
         $this->assertEquals(1, Episode::first()->number);
@@ -51,7 +51,7 @@ class CreateEpisodesTest extends TestCase
             'title' => '',
         ];
         // act
-        $this->json('post', '/api/v1/episode?api_token=' . $this->apiGateway->getValidTestToken(), $episode);
+        $this->json('post', '/api/v1/episode?api_token=' . $this->apiGateway->getValidTestAdminToken(), $episode);
         // assert
         $this->assertResponseStatus(422)
             ->seeJsonSubset([

@@ -25,7 +25,7 @@ class AssignTopicsToEpisodesTest extends TestCase
         $episode = factory(Episode::class)->create();
         $topic = factory(Topic::class)->create();
         // act
-        $this->json('patch', '/api/v1/topic/' . $topic->id . "?api_token=" . $this->apiGateway->getValidTestToken(), ['episode_id' => $episode->id]);
+        $this->json('patch', '/api/v1/topic/' . $topic->id . "?api_token=" . $this->apiGateway->getValidTestAdminToken(), ['episode_id' => $episode->id]);
         // assert
         $this->assertResponseStatus(200);
         $this->assertEquals(true, $episode->topics()->first()->id == $topic->id);

@@ -2,6 +2,8 @@
 use App\User;
 use App\Episode;
 use Carbon\Carbon;
+use App\Api\ApiGateway;
+use App\Api\FakeApiGateway;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -13,6 +15,8 @@ class UserCanViewEpisodesTest extends TestCase
     {
         parent::setUp();
         $this->user = factory(User::class)->create();
+        $this->apiGateway = new FakeApiGateway();
+        $this->app->instance(ApiGateway::class, $this->apiGateway);
     }
 
     /** @test */
@@ -23,7 +27,7 @@ class UserCanViewEpisodesTest extends TestCase
         	'air_date' => Carbon::parse('-1 week')
     	]);
         // act
-        $this->json('get', '/api/v1/episode?api_token=' . $this->user->api_token);
+        $this->json('get', '/api/v1/episode?api_token=' . $this->apiGateway->getValidTestUserToken());
         // assert
         $this->seeJson($episode->toArray());
     }
@@ -36,7 +40,7 @@ class UserCanViewEpisodesTest extends TestCase
         	'air_date' => Carbon::parse('-1 week')
     	]);
         // act
-        $this->json('get', '/api/v1/episode/' . $episode->id . '?api_token=' . $this->user->api_token);
+        $this->json('get', '/api/v1/episode/' . $episode->id . '?api_token=' . $this->apiGateway->getValidTestUserToken());
         // assert
         $this->seeJson($episode->toArray());
     }
@@ -50,7 +54,7 @@ class UserCanViewEpisodesTest extends TestCase
         	'air_date' => Carbon::parse('+1 week')
     	]);
         // act
-        $this->json('get', '/api/v1/episode?api_token=' . $this->user->api_token);
+        $this->json('get', '/api/v1/episode?api_token=' . $this->apiGateway->getValidTestUserToken());
         // assert
         $this->assertResponseStatus(200);
         $this->seeJson(['episodes' => []]);
