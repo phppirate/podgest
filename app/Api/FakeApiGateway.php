@@ -13,11 +13,12 @@ class FakeApiGateway implements ApiGateway{
 	
 	public function getUser(Request $request)
 	{
-		$this->allowAccessForRequest($request);
-		return factory(User::class)->create([
-			'api_token' => $this->getValidTestAdminToken(),
-			'is_admin' => $request->get('api_token') === $this->getValidTestAdminToken()
-		]);
+		if($this->allowAccessForRequest($request)){
+			return factory(User::class)->create([
+				'api_token' => $this->getValidTestAdminToken(),
+				'is_admin' => $request->get('api_token') === $this->getValidTestAdminToken()
+			]);
+		}
 	}
 
 	public function getValidTestAdminToken()

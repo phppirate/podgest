@@ -24,17 +24,16 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if($this->apiGateway->allowAccessForRequest($request)){
-            $request->user = $this->apiGateway->getUser($request);  
-            Auth::setUser($request->user);
+        if(! $this->apiGateway->allowAccessForRequest($request)){
+            return response()->json(['message' => 'Unauthorized!'], 401);
+        }
+        $request->user = $this->apiGateway->getUser($request);  
+        Auth::setUser($request->user);
 
-            if($request->user->isAdmin()){
-                return $next($request);
-            }
-
-            abort(401);
+        if($request->user->isAdmin()){
+            return $next($request);
         }
 
-        abort(401);
+        return response()->json(['message' => 'Unauthorized!'], 401);
     }
 }

@@ -48,7 +48,6 @@ class UserCanViewEpisodesTest extends TestCase
     /** @test */
     function user_connot_see_unaired_episodes()
     {
-        $this->disableExceptionHandling();
         // arrange
         $episode = factory(Episode::class)->create([
         	'air_date' => Carbon::parse('+1 week')
