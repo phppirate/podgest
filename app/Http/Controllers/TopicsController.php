@@ -53,4 +53,16 @@ class TopicsController extends Controller
         $topic->update($request->only('episode_id', 'title', 'description', 'status'));
         return response()->json([], 200);
     }
+
+    public function delete(Topic $topic)
+    {
+        if($topic->user_id != request()->user()->id){
+            return response()->json([
+                'message' => 'You cannot delete topics you did not create.'
+            ], 422);
+        }
+        return response()->json([
+            'message' => 'Topic successfully deleted.'
+        ], 200);
+    }
 }

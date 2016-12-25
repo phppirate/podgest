@@ -40,21 +40,55 @@ class UserCanEditAndDeleteTopicsTest extends TestCase
     function user_cannot_edit_topics_they_have_not_suggested()
     {
         $topic = factory(Topic::class)->create([
-        	'user_id' => 2,
-        	'title' => 'Some Old Title',
-        	'description' => 'Some Old Description'
-    	]);
+            'user_id' => 2,
+            'title' => 'Some Old Title',
+            'description' => 'Some Old Description'
+        ]);
 
         $this->json('patch', '/api/v1/topic/' . $topic->id . '/update?api_token=' . $this->apiGateway->getValidTestUserToken(), [
-        	'title' => 'Some New Title',
-        	'description' => 'Some New Description'
-    	]);
+            'title' => 'Some New Title',
+            'description' => 'Some New Description'
+        ]);
 
         $this->assertResponseStatus(422);
-    	$this->assertEquals('Some Old Title', $topic->fresh()->title);
-    	$this->assertEquals('Some Old Description', $topic->fresh()->description);
-    	$this->seeJson([
-    		'message' => 'You cannot edit topics you did not create.'
-		]);
+        $this->assertEquals('Some Old Title', $topic->fresh()->title);
+        $this->assertEquals('Some Old Description', $topic->fresh()->description);
+        $this->seeJson([
+            'message' => 'You cannot edit topics you did not create.'
+        ]);
+    }
+
+    /** @test */
+    function user_can_delete_topics_they_suggested()
+    {
+        $topic = factory(Topic::class)->create([
+            'user_id' => 1,
+            'title' => 'Some Old Title',
+            'description' => 'Some Old Description'
+        ]);
+
+        $this->json('delete', '/api/v1/topic/' . $topic->id . '?api_token=' . $this->apiGateway->getValidTestUserToken());
+
+        $this->assertResponseStatus(200);
+        $this->seeJson([
+            'message' => 'Topic successfully deleted.'
+        ]);
+    }
+
+    /** @test */
+    function user_cannot_delete_topics_they_did_not_suggested()
+    {
+        $topic = factory(Topic::class)->create([
+            'user_id' => 2,
+            'title' => 'Some Old Title',
+            'description' => 'Some Old Description'
+        ]);
+
+        $this->json('delete', '/api/v1/topic/' . $topic->id . '?api_token=' . $this->apiGateway->getValidTestUserToken());
+
+        $this->assertResponseStatus(422);
+        $this->seeJson([
+            'message' => 'You cannot delete topics you did not create.'
+        ]);
     }
 }
