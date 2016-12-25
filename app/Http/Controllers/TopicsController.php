@@ -8,6 +8,18 @@ use App\Exceptions\InvalidTopicStatusException;
 
 class TopicsController extends Controller
 {
+    public function show(Topic $topic)
+    {
+        return $topic;
+    }
+
+    public function index()
+    {
+        return response()->json([
+            'topics' => Topic::all(),
+        ]);
+    }
+
     public function create(Request $request)
     {
         $this->validate($request, [
