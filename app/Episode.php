@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Episode extends Model
@@ -14,5 +15,10 @@ class Episode extends Model
     public function topics()
     {
         return $this->hasMany(Topic::class);
+    }
+
+    public function scopeAired($query)
+    {
+    	return $query->where('air_date', '<', Carbon::now());
     }
 }

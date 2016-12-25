@@ -7,8 +7,13 @@ use Illuminate\Http\Request;
 
 class EpisodesController extends Controller
 {
-    public function show(Episode $episode)
+    public function show($id)
     {
+        if(request()->user()->isAdmin()){
+            $episode = Episode::findOrFail($id);
+        } else {
+            $episode = Episode::Aired()->findOrFail($id);
+        }
         return response()->json([
             'episode' => $episode,
         ]);
@@ -16,8 +21,13 @@ class EpisodesController extends Controller
 
     public function index()
     {
+        if(request()->user()->isAdmin()){
+            $episodes = Episode::all();
+        } else {
+            $episodes = Episode::aired()->get();
+        }
         return response()->json([
-            'episodes' => Episode::all(),
+            'episodes' => $episodes
         ]);
     }
 
