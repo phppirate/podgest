@@ -59,6 +59,24 @@ class UserCanEditAndDeleteTopicsTest extends TestCase
     }
 
     /** @test */
+    function user_cannot_edit_topics_if_the_status_has_been_changed()
+    {
+        $topic = factory(Topic::class)->create([
+            'user_id' => 1,
+            'title' => 'Some Old Title',
+            'description' => 'Some Old Description',
+            'status' => 'accepted'
+        ]);
+
+        $this->json('patch', '/api/v1/topic/' . $topic->id . '/update?api_token=' . $this->apiGateway->getValidTestUserToken());
+
+        $this->assertResponseStatus(422);
+        $this->seeJson([
+            'message' => 'You cannot edit topics that have been accepted, rejected, or marked as old.'
+        ]);
+    }
+
+    /** @test */
     function user_can_delete_topics_they_suggested()
     {
         $topic = factory(Topic::class)->create([
@@ -89,6 +107,24 @@ class UserCanEditAndDeleteTopicsTest extends TestCase
         $this->assertResponseStatus(422);
         $this->seeJson([
             'message' => 'You cannot delete topics you did not create.'
+        ]);
+    }
+
+    /** @test */
+    function user_cannot_delete_topics_if_the_status_has_been_changed()
+    {
+        $topic = factory(Topic::class)->create([
+            'user_id' => 1,
+            'title' => 'Some Old Title',
+            'description' => 'Some Old Description',
+            'status' => 'accepted'
+        ]);
+
+        $this->json('delete', '/api/v1/topic/' . $topic->id . '?api_token=' . $this->apiGateway->getValidTestUserToken());
+
+        $this->assertResponseStatus(422);
+        $this->seeJson([
+            'message' => 'You cannot delete topics that have been accepted, rejected, or marked as old.'
         ]);
     }
 }

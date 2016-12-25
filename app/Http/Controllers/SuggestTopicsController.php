@@ -25,6 +25,11 @@ class SuggestTopicsController extends Controller
                 'message' => 'You cannot edit topics you did not create.'
             ], 422);
         }
+        if($topic->status != null){
+            return response()->json([
+                'message' => 'You cannot edit topics that have been accepted, rejected, or marked as old.'
+            ], 422);
+        }
         $topic->update($request->only('title', 'description'));
         return response()->json([], 200);
     }

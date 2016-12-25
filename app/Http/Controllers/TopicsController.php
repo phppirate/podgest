@@ -61,6 +61,11 @@ class TopicsController extends Controller
                 'message' => 'You cannot delete topics you did not create.'
             ], 422);
         }
+        if($topic->status != null){
+            return response()->json([
+                'message' => 'You cannot delete topics that have been accepted, rejected, or marked as old.'
+            ], 422);
+        }
         return response()->json([
             'message' => 'Topic successfully deleted.'
         ], 200);
