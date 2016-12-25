@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Topic;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -28,5 +29,10 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->is_admin;
+    }
+
+    public function topics()
+    {
+        return $this->hasMany(Topic::class);
     }
 }

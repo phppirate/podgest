@@ -10,7 +10,8 @@ class SuggestTopicsController extends Controller
     public function create(Request $request)
     {
     	$this->validate($request, [ 'title' => 'required' ]);
-    	$topic = Topic::create($request->only(['title', 'description']));
+    	$topic = new Topic($request->only(['title', 'description']));
+    	$request->user()->topics()->save($topic);
     	return response()->json([
     		'id' => $topic->id,
     		'message' => 'Topic Successfully Suggested'

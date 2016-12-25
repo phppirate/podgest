@@ -21,6 +21,8 @@ class SuggestTopicsTest extends TestCase
     /** @test */
     function can_suggest_a_topic()
     {
+        
+        $this->disableExceptionHandling();
         $topic = [
             'title' => "Is Foo a good thing?",
             'description' => "A little about foo"

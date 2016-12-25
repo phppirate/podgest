@@ -40,6 +40,7 @@ $factory->define(App\Episode::class, function (Faker\Generator $faker) {
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Topic::class, function (Faker\Generator $faker) {
     return [
+        'user_id' => 1,
         'title' => $faker->title,
         'description' => $faker->paragraph,
     ];

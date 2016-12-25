@@ -8,6 +8,7 @@ use App\Exceptions\InvalidTopicStatusException;
 class Topic extends Model
 {
     protected $guarded = [];
+    protected $casts = ['user_id' => 'integer'];
 
     static function validateStatus($status)
     {

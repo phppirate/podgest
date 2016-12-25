@@ -29,7 +29,7 @@ class TopicsController extends Controller
         ]);
     	$topic = new Topic($request->only(['title', 'description']));
     	$topic->status = 'approved';
-    	$topic->save();
+    	$request->user()->topics()->save($topic);
     	return response()->json([
     		'id' => $topic->id,
     		'message' => 'Topic Successfully Created'
