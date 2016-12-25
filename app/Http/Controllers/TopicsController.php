@@ -56,16 +56,19 @@ class TopicsController extends Controller
 
     public function delete(Topic $topic)
     {
-        if($topic->user_id != request()->user()->id){
-            return response()->json([
-                'message' => 'You cannot delete topics you did not create.'
-            ], 422);
+        if(! request()->user()->isAdmin()){
+            if($topic->user_id != request()->user()->id){
+                return response()->json([
+                    'message' => 'You cannot delete topics you did not create.'
+                ], 422);
+            }
+            if($topic->status != null){
+                return response()->json([
+                    'message' => 'You cannot delete topics that have been accepted, rejected, or marked as old.'
+                ], 422);
+            }
         }
-        if($topic->status != null){
-            return response()->json([
-                'message' => 'You cannot delete topics that have been accepted, rejected, or marked as old.'
-            ], 422);
-        }
+        $topic->delete();
         return response()->json([
             'message' => 'Topic successfully deleted.'
         ], 200);

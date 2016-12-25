@@ -88,6 +88,7 @@ class UserCanEditAndDeleteTopicsTest extends TestCase
         $this->json('delete', '/api/v1/topic/' . $topic->id . '?api_token=' . $this->apiGateway->getValidTestUserToken());
 
         $this->assertResponseStatus(200);
+        $this->assertNull($topic->fresh());
         $this->seeJson([
             'message' => 'Topic successfully deleted.'
         ]);
@@ -105,6 +106,7 @@ class UserCanEditAndDeleteTopicsTest extends TestCase
         $this->json('delete', '/api/v1/topic/' . $topic->id . '?api_token=' . $this->apiGateway->getValidTestUserToken());
 
         $this->assertResponseStatus(422);
+        $this->assertNotNull($topic->fresh());
         $this->seeJson([
             'message' => 'You cannot delete topics you did not create.'
         ]);

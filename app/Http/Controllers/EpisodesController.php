@@ -43,4 +43,21 @@ class EpisodesController extends Controller
     		'message' => "Episode Successfully Created"
 		], 201);
     }
+
+    public function update(Episode $episode, Request $request)
+    {
+        $episode->update($request->only('number', 'title', 'description'));
+        return response()->json([
+            'id' => $episode->id,
+            'message' => 'Episode successfully updated'
+        ], 200);
+    }
+
+    public function delete(Episode $episode)
+    {
+        $episode->delete();
+        return response()->json([
+            'message' => 'Episode successfully deleted'
+        ], 200);
+    }
 }

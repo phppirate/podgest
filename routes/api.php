@@ -25,4 +25,6 @@ Route::patch('/v1/topic/{topic}', 'TopicsController@update')->middleware('admin'
 
 Route::get('/v1/episode', 'EpisodesController@index')->middleware('user');
 Route::get('/v1/episode/{episode}', 'EpisodesController@show')->middleware('user');
+Route::patch('/v1/episode/{episode}', 'EpisodesController@update')->middleware('admin');
+Route::delete('/v1/episode/{episode}', 'EpisodesController@delete')->middleware('admin');
 Route::post('/v1/episode', 'EpisodesController@create')->middleware('admin');
