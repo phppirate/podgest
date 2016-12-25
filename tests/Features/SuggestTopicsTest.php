@@ -1,6 +1,8 @@
 <?php
 
 use App\Topic;
+use App\Api\ApiGateway;
+use App\Api\FakeApiGateway;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -8,6 +10,14 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class SuggestTopicsTest extends TestCase
 {
     use DatabaseMigrations;
+
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->apiGateway = new FakeApiGateway();
+        $this->app->instance(ApiGateway::class, $this->apiGateway);
+    }
+
     /** @test */
     function can_suggest_a_topic()
     {
@@ -16,7 +26,7 @@ class SuggestTopicsTest extends TestCase
             'description' => "A little about foo"
         ];
 
-        $this->post("/api/v1/topic/suggest", $topic);
+        $this->post("/api/v1/topic/suggest?api_token=" . $this->apiGateway->getValidTestUserToken(), $topic);
 
         $this->assertResponseStatus(201);
         $this->assertNotNull(Topic::first());
@@ -32,7 +42,7 @@ class SuggestTopicsTest extends TestCase
             'description' => "A little about foo"
         ];
 
-        $this->post("/api/v1/topic/suggest", $topic);
+        $this->post("/api/v1/topic/suggest?api_token=" . $this->apiGateway->getValidTestUserToken(), $topic);
 
         $this->seeJsonSubset([
             'id' => 1,
@@ -48,7 +58,7 @@ class SuggestTopicsTest extends TestCase
             'description' => ""
         ];
 
-        $this->json("post", "/api/v1/topic/suggest", $topic);
+        $this->json("post", "/api/v1/topic/suggest?api_token=" . $this->apiGateway->getValidTestUserToken(), $topic);
 
         $this->assertResponseStatus(422);
     }

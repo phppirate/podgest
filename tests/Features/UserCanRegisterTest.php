@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class UserCanRegisterTest extends TestCase
 {
 	use DatabaseMigrations;
+
     /** @test */
     function a_user_can_register()
     {
