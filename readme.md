@@ -1,40 +1,81 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img width="150"src="https://laravel.com/laravel.png"></a></p>
+# Podgest - For the Real World Podcasters
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+Podgest is a platform for Podcasters who want to answer questions from there community it is the only competition for a project by Matt Stauffer of Tighten.co. (http://mattstauffer.co)[Matt's Website]
 
-## About Laravel
+Here are the things it will be able to do:
+- Track Episodes
+- Track Topics
+- Allow Users to suggest topics
+- Allow an admin to tag topics as accepted, or rejected
+- Allow an admin to assign topics to episodes
+- Allow users to comment on topics
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+I am currently just starting this project so there is not a lot there.
+It will be a full SPA with NO PAGE RELOADS whatsoever!!!
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+I will be using The Laravel PHP Framework with MySQL for the backend, and Vue.js 2.0 with Axios and Vue Router for the front-end.
+I am starting with the API and the UI Design. So all the functionality will be built before I even do any JavaScript.
+So this will go from a Primarily PHP project to a Primarily JavaScript Project before it is complete.
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
 
-## Learning Laravel
+## Current Test Coverage
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
+AdminCanEditAndDeleteEpisodes
+[x] Admin can edit episodes
+[x] Admin can delete episodes
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+AdminCanEditAndDeleteTopics
+[x] Admin can edit topics
+[x] Admin can delete topics
 
-## Contributing
+AssignTopicsToEpisodes
+[x] Admin can assign topics to episodes
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+CreateEpisodes
+[x] Can create episodes
+[x] Episode cannot be created without a title
 
-## Security Vulnerabilities
+CreateTopics
+[x] Cannot create topic without valid api token
+[x] Admin can create a topic
+[x] Admin cannot create topic with empty title
+[x] Successful topic creation returns id
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+SuggestTopics
+[x] Can suggest a topic
+[x] Successful topic creation returns id
+[x] Cannot suggest if title is empty
 
-## License
+UpdateTopicStatis
+[x] Nonadmin cannot update topic status
+[x] Admin can update topic status
+[x] Admin can only use valid topic statuses
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+UserCanEditAndDeleteTopics
+[x] User can edit topics they have suggested
+[x] User cannot edit topics they have not suggested
+[x] User cannot edit topics if the status has been changed
+[x] User can delete topics they suggested
+[x] User cannot delete topics they did not suggested
+[x] User cannot delete topics if the status has been changed
+
+UserCanRegister
+[x] A user can register
+
+UserCanViewEpisodes
+[x] User can view aired episodes
+[x] User can view single aired episode
+[x] User connot see unaired episodes
+
+UserCanViewTopics
+[x] User can view topics
+[x] User can view single topic
+
+Episode
+[x] Can get episodes that have aired
+
+Topic
+[x] Topic can validate status
+
+User
+[x] Can get is admin
