@@ -8,6 +8,7 @@ class Episode extends Model
 {
     //
     protected $guarded = [];
+    protected $casts = ['number' => 'integer'];
     protected $dates = ['air_date'];
 
     public function topics()

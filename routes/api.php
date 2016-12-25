@@ -19,4 +19,6 @@ Route::get('/v1/topic', 'TopicsController@index');
 Route::get('/v1/topic/{topic}', 'TopicsController@show');
 Route::post('/v1/topic', 'TopicsController@create')->middleware('admin:api');
 Route::patch('/v1/topic/{topic}', 'TopicsController@update')->middleware('admin:api');
+Route::get('/v1/episode', 'EpisodesController@index');
+Route::get('/v1/episode/{episode}', 'EpisodesController@show');
 Route::post('/v1/episode', 'EpisodesController@create')->middleware('admin:api');

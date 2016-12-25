@@ -10,7 +10,9 @@ class TopicsController extends Controller
 {
     public function show(Topic $topic)
     {
-        return $topic;
+        return response()->json([
+            'topic' => $topic
+        ]);
     }
 
     public function index()
