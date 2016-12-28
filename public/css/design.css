@@ -5,6 +5,18 @@ html, body{
 	background: #FAFAFA;
 }
 
+
+.highlight{
+	position: absolute;
+	top:0px;
+	left: 0px;
+	transition: all .2s cubic-bezier(0, 0, 0.4, 1.4);
+	transform: translate(0px, 60px);
+	background: #4990E2;
+	height: 2px;
+	display: inline-block;
+}
+
 /* Navbar */
 .navbar{
 	/*padding: 0px 20px;*/
@@ -169,6 +181,9 @@ textarea.is-form-control{
 /* Responsive */
 
 @media (max-width: 700px) {
+	.highlight{
+		opacity: 0;
+	}
 	.navbar .brand-area{
 		width: 100%;
 		display: flex;

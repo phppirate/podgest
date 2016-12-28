@@ -52,14 +52,39 @@
 		</div>
 	</div>
 	<script>
+		const nav = document.querySelector('.navbar');
+		const highlight = document.createElement('span');
+		let timer = setTimeout(hideHiglight, 300);
+		highlight.classList.add('highlight');
+		document.body.append(highlight);
+
 		document.toggleNav = function(){
-			let nav = document.querySelector('.navbar');
 			if(nav.classList.contains('open')){
 				nav.classList.remove('open');
 			} else {
 				nav.classList.add('open');
 			}
 		}
+
+		function handleEnter(){
+			clearTimeout(timer);
+			const linkCords = this.getBoundingClientRect();
+			highlight.style.setProperty('opacity', '1');
+			highlight.style.setProperty('width', linkCords.width + "px");
+			highlight.style.setProperty('transform', `translate(${linkCords.left}px, ${60}px`);
+		}
+
+		function hideHiglight(){
+			highlight.style.setProperty('opacity', '0');
+		}
+
+		const navAnchors = nav.querySelectorAll('a');
+		navAnchors.forEach(a => {
+			a.addEventListener('mouseenter', handleEnter);
+			a.addEventListener('mouseleave', () => {
+				timer = setTimeout(hideHiglight, 300);
+			});
+		});
 	</script>
 </body>
 </html>
