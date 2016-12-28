@@ -1,6 +1,6 @@
 # Podgest - For the Real World Podcasters
 
-Podgest is a platform for Podcasters who want to answer questions from there community it is the only competition for a project by Matt Stauffer of Tighten.co. (http://mattstauffer.co)[Matt's Website]
+Podgest is a platform for Podcasters who want to answer questions from there community it is the only competition for a project by Matt Stauffer of Tighten.co. [Matt's Website](http://mattstauffer.co)
 
 Here are the things it will be able to do:
 - Track Episodes
