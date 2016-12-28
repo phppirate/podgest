@@ -20,38 +20,38 @@ So this will go from a Primarily PHP project to a Primarily JavaScript Project b
 
 ## Current Test Coverage
 
-AdminCanEditAndDeleteEpisodes
+### AdminCanEditAndDeleteEpisodes
 [x] Admin can edit episodes
 [x] Admin can delete episodes
 
-AdminCanEditAndDeleteTopics
+### AdminCanEditAndDeleteTopics
 [x] Admin can edit topics
 [x] Admin can delete topics
 
-AssignTopicsToEpisodes
+### AssignTopicsToEpisodes
 [x] Admin can assign topics to episodes
 
-CreateEpisodes
+### CreateEpisodes
 [x] Can create episodes
 [x] Episode cannot be created without a title
 
-CreateTopics
+### CreateTopics
 [x] Cannot create topic without valid api token
 [x] Admin can create a topic
 [x] Admin cannot create topic with empty title
 [x] Successful topic creation returns id
 
-SuggestTopics
+### SuggestTopics
 [x] Can suggest a topic
 [x] Successful topic creation returns id
 [x] Cannot suggest if title is empty
 
-UpdateTopicStatis
+### UpdateTopicStatis
 [x] Nonadmin cannot update topic status
 [x] Admin can update topic status
 [x] Admin can only use valid topic statuses
 
-UserCanEditAndDeleteTopics
+### UserCanEditAndDeleteTopics
 [x] User can edit topics they have suggested
 [x] User cannot edit topics they have not suggested
 [x] User cannot edit topics if the status has been changed
@@ -59,23 +59,23 @@ UserCanEditAndDeleteTopics
 [x] User cannot delete topics they did not suggested
 [x] User cannot delete topics if the status has been changed
 
-UserCanRegister
+### UserCanRegister
 [x] A user can register
 
-UserCanViewEpisodes
+### UserCanViewEpisodes
 [x] User can view aired episodes
 [x] User can view single aired episode
 [x] User connot see unaired episodes
 
-UserCanViewTopics
+### UserCanViewTopics
 [x] User can view topics
 [x] User can view single topic
 
-Episode
+### Episode
 [x] Can get episodes that have aired
 
-Topic
+### Topic
 [x] Topic can validate status
 
-User
+### User
 [x] Can get is admin
