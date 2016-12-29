@@ -12,6 +12,7 @@
 */
 
 Route::post('/v1/user', 'UserController@create');
+Route::post('/v1/user/api_token', 'UserController@show');
 
 Route::post('/v1/topic/suggest', 'SuggestTopicsController@create')->middleware('user');
 Route::get('/v1/topic', 'TopicsController@index')->middleware('user');
