@@ -24,7 +24,6 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
-    	// dd($request->get('email'));
     	$user = User::create([
             'name' => $request->get('name'),
             'email' => $request->get('email'),

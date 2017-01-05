@@ -51,7 +51,10 @@ class TopicsController extends Controller
         }
 
         $topic->update($request->only('episode_id', 'title', 'description', 'status'));
-        return response()->json([], 200);
+        return response()->json([
+            'id' => $topic->id,
+            'message' => 'Topic Successfully Updated'
+        ], 200);
     }
 
     public function delete(Topic $topic)
