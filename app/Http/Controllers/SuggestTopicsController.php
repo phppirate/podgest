@@ -31,6 +31,9 @@ class SuggestTopicsController extends Controller
             ], 422);
         }
         $topic->update($request->only('title', 'description'));
-        return response()->json([], 200);
+        return response()->json([
+            'id' => $topic->id,
+            'message' => 'Topic Successfully Updated'
+        ], 200);
     }
 }
