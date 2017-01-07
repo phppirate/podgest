@@ -27,7 +27,7 @@ class TopicsController extends Controller
         $this->validate($request, [
             'title' => 'required'
         ]);
-    	$topic = new Topic($request->only(['title', 'description']));
+    	$topic = new Topic($request->intersect(['title', 'description']));
     	$topic->status = 'approved';
     	$request->user()->topics()->save($topic);
     	return response()->json([
@@ -50,7 +50,7 @@ class TopicsController extends Controller
             }
         }
 
-        $topic->update($request->only('episode_id', 'title', 'description', 'status'));
+        $topic->update($request->intersect('episode_id', 'title', 'description', 'status'));
         return response()->json([
             'id' => $topic->id,
             'message' => 'Topic Successfully Updated'

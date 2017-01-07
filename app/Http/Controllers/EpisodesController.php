@@ -37,7 +37,7 @@ class EpisodesController extends Controller
     		'title' => 'required'
 		]);
         
-    	$episode = Episode::create($request->only(['number', 'title', 'description', 'air_date']));
+    	$episode = Episode::create($request->intersect(['number', 'title', 'description', 'air_date']));
     	return response()->json([
     		'id' => $episode->id,
     		'message' => "Episode Successfully Created"
@@ -46,7 +46,7 @@ class EpisodesController extends Controller
 
     public function update(Episode $episode, Request $request)
     {
-        $episode->update($request->only('number', 'title', 'description'));
+        $episode->update($request->intersect('number', 'title', 'description'));
         return response()->json([
             'id' => $episode->id,
             'message' => 'Episode successfully updated'
