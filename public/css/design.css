@@ -43,7 +43,6 @@ html, body{
 }
 .navbar-nav{
 	display: flex;
-	/*background: #00f;*/
 	align-items: center;
 	list-style: none;
 	padding: 0;
