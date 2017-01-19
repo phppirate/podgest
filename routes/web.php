@@ -18,3 +18,7 @@ Route::get('/', function () {
 Route::get('/design', function () {
     return view('design');
 });
+
+Route::get('/scroll', function () {
+    return view('scroll');
+});

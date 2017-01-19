@@ -51,6 +51,21 @@
 			</div>
 		</div>
 	</div>
+	<div class="is-container has-pt-5 is-topics-list">
+		<div class="panel is-topic-panel is-centered no-title has-shadow">
+			<div class="panel-body">
+				<div class="is-topic-header">
+					<h1 class="is-topic-title"><a href="#">Topic Title</a></h1>
+					<div class="is-topic-author"><a href="#">Sam Podlogar</a></div>
+				</div>
+				<div class="is-topic-body">
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus, blanditiis reiciendis fugit voluptates vitae illo dignissimos nam quae cupiditate sit illum ex repudiandae aut nobis similique quis velit explicabo maxime.
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus, blanditiis reiciendis fugit voluptates vitae illo dignissimos nam quae cupiditate sit illum ex repudiandae aut nobis similique quis velit explicabo maxime.
+				</div>
+				<div class="is-topic-footer">Wed Jul 18th - 12 <a href="#">Likes</a> - 6 <a href="#">Comments</a></div>
+			</div>
+		</div>
+	</div>
 	<script>
 		const nav = document.querySelector('.navbar');
 		const highlight = document.createElement('span');
