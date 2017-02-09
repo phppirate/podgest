@@ -2,4 +2,6 @@
 
 namespace App\Exceptions;
 
-class InvalidTopicStatusException extends \RuntimeException {}
+class InvalidTopicStatusException extends \RuntimeException
+{
+}

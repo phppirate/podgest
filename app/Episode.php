@@ -19,6 +19,6 @@ class Episode extends Model
 
     public function scopeAired($query)
     {
-    	return $query->where('air_date', '<', Carbon::now());
+        return $query->where('air_date', '<', Carbon::now());
     }
 }
