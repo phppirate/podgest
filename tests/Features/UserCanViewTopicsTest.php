@@ -1,14 +1,13 @@
 <?php
-use App\Topic;
+
 use App\Api\ApiGateway;
 use App\Api\FakeApiGateway;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
+use App\Topic;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class UserCanViewTopicsTest extends TestCase
 {
-	use DatabaseMigrations;
+    use DatabaseMigrations;
 
     protected function setUp()
     {
@@ -18,24 +17,25 @@ class UserCanViewTopicsTest extends TestCase
     }
 
     /** @test */
-    function user_can_view_topics()
+    public function user_can_view_topics()
     {
-    	$this->disableExceptionHandling();
+        $this->disableExceptionHandling();
         // arrange
         $topic = factory(Topic::class)->create();
         // act
-        $this->json('get', "/api/v1/topic?api_token=" . $this->apiGateway->getValidTestUserToken());
+        $this->json('get', '/api/v1/topic?api_token='.$this->apiGateway->getValidTestUserToken());
         // assert
         $this->seeJson($topic->toArray());
     }
+
     /** @test */
-    function user_can_view_single_topic()
+    public function user_can_view_single_topic()
     {
-    	$this->disableExceptionHandling();
+        $this->disableExceptionHandling();
         // arrange
         $topic = factory(Topic::class)->create();
         // act
-        $this->json('get', '/api/v1/topic/' . $topic->id . '?api_token=' . $this->apiGateway->getValidTestUserToken());
+        $this->json('get', '/api/v1/topic/'.$topic->id.'?api_token='.$this->apiGateway->getValidTestUserToken());
         // assert
         $this->seeJson($topic->toArray());
     }

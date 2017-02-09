@@ -1,23 +1,21 @@
 <?php
-use App\Topic;
+
 use App\Exceptions\InvalidTopicStatusException;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\Topic;
 
 class TopicTest extends TestCase
 {
     /** @test */
-    function topic_can_validate_status()
+    public function topic_can_validate_status()
     {
         $this->assertTrue(Topic::validateStatus('accepted'));
         $this->assertTrue(Topic::validateStatus('rejected'));
         $this->assertTrue(Topic::validateStatus('old'));
-        try{
-        	Topic::validateStatus('foobar');
-        } catch (InvalidTopicStatusException $e){
-        	return;
+        try {
+            Topic::validateStatus('foobar');
+        } catch (InvalidTopicStatusException $e) {
+            return;
         }
-        $this->fail("Topic::validateStatus() returned true when InvalidTopicStatusException should have been thrown.");
+        $this->fail('Topic::validateStatus() returned true when InvalidTopicStatusException should have been thrown.');
     }
 }
