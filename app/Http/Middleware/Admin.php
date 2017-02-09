@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Api\ApiGateway;
 use Auth;
 use Closure;
-use App\Api\ApiGateway;
 
 class Admin
 {
@@ -18,19 +18,20 @@ class Admin
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        if(! $this->apiGateway->allowAccessForRequest($request)){
+        if (!$this->apiGateway->allowAccessForRequest($request)) {
             return response()->json(['message' => 'Unauthorized!'], 401);
         }
-        $request->user = $this->apiGateway->getUser($request);  
+        $request->user = $this->apiGateway->getUser($request);
         Auth::setUser($request->user);
 
-        if($request->user->isAdmin()){
+        if ($request->user->isAdmin()) {
             return $next($request);
         }
 

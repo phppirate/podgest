@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\InvalidTopicStatusException;
 use App\Topic;
 use Illuminate\Http\Request;
-use App\Exceptions\InvalidTopicStatusException;
 
 class TopicsController extends Controller
 {
     public function show(Topic $topic)
     {
         return response()->json([
-            'topic' => $topic
+            'topic' => $topic,
         ]);
     }
 
@@ -25,55 +25,58 @@ class TopicsController extends Controller
     public function create(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required'
+            'title' => 'required',
         ]);
-    	$topic = new Topic($request->intersect(['title', 'description']));
-    	$topic->status = 'approved';
-    	$request->user()->topics()->save($topic);
-    	return response()->json([
-    		'id' => $topic->id,
-    		'message' => 'Topic Successfully Created'
-		], 201);
+        $topic = new Topic($request->intersect(['title', 'description']));
+        $topic->status = 'approved';
+        $request->user()->topics()->save($topic);
+
+        return response()->json([
+            'id'      => $topic->id,
+            'message' => 'Topic Successfully Created',
+        ], 201);
     }
 
     public function update(Topic $topic, Request $request)
     {
-        if($request->has('status')){
+        if ($request->has('status')) {
             try {
                 Topic::validateStatus($request->status);
             } catch (InvalidTopicStatusException $e) {
                 return response()->json(['errors' => [
                     'status' => [
-                        'status is invalid'
-                    ]
+                        'status is invalid',
+                    ],
                 ]], 422);
             }
         }
 
         $topic->update($request->intersect('episode_id', 'title', 'description', 'status'));
+
         return response()->json([
-            'id' => $topic->id,
-            'message' => 'Topic Successfully Updated'
+            'id'      => $topic->id,
+            'message' => 'Topic Successfully Updated',
         ], 200);
     }
 
     public function delete(Topic $topic)
     {
-        if(! request()->user()->isAdmin()){
-            if($topic->user_id != request()->user()->id){
+        if (!request()->user()->isAdmin()) {
+            if ($topic->user_id != request()->user()->id) {
                 return response()->json([
-                    'message' => 'You cannot delete topics you did not create.'
+                    'message' => 'You cannot delete topics you did not create.',
                 ], 422);
             }
-            if($topic->status != null){
+            if ($topic->status != null) {
                 return response()->json([
-                    'message' => 'You cannot delete topics that have been accepted, rejected, or marked as old.'
+                    'message' => 'You cannot delete topics that have been accepted, rejected, or marked as old.',
                 ], 422);
             }
         }
         $topic->delete();
+
         return response()->json([
-            'message' => 'Topic successfully deleted.'
+            'message' => 'Topic successfully deleted.',
         ], 200);
     }
 }

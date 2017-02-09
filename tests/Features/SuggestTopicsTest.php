@@ -1,11 +1,9 @@
 <?php
 
-use App\Topic;
 use App\Api\ApiGateway;
 use App\Api\FakeApiGateway;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
+use App\Topic;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class SuggestTopicsTest extends TestCase
 {
@@ -19,16 +17,15 @@ class SuggestTopicsTest extends TestCase
     }
 
     /** @test */
-    function can_suggest_a_topic()
+    public function can_suggest_a_topic()
     {
-        
         $this->disableExceptionHandling();
         $topic = [
-            'title' => "Is Foo a good thing?",
-            'description' => "A little about foo"
+            'title'       => 'Is Foo a good thing?',
+            'description' => 'A little about foo',
         ];
 
-        $this->post("/api/v1/topic/suggest?api_token=" . $this->apiGateway->getValidTestUserToken(), $topic);
+        $this->post('/api/v1/topic/suggest?api_token='.$this->apiGateway->getValidTestUserToken(), $topic);
 
         $this->assertResponseStatus(201);
         $this->assertNotNull(Topic::first());
@@ -37,30 +34,30 @@ class SuggestTopicsTest extends TestCase
     }
 
     /** @test */
-    function successful_topic_creation_returns_id()
+    public function successful_topic_creation_returns_id()
     {
         $topic = [
-            'title' => "Is Foo a good thing?",
-            'description' => "A little about foo"
+            'title'       => 'Is Foo a good thing?',
+            'description' => 'A little about foo',
         ];
 
-        $this->post("/api/v1/topic/suggest?api_token=" . $this->apiGateway->getValidTestUserToken(), $topic);
+        $this->post('/api/v1/topic/suggest?api_token='.$this->apiGateway->getValidTestUserToken(), $topic);
 
         $this->seeJsonSubset([
-            'id' => 1,
-            'message' => 'Topic Successfully Suggested'
+            'id'      => 1,
+            'message' => 'Topic Successfully Suggested',
         ]);
     }
 
     /** @test */
-    function cannot_suggest_if_title_is_empty()
+    public function cannot_suggest_if_title_is_empty()
     {
         $topic = [
-            'title' => "",
-            'description' => ""
+            'title'       => '',
+            'description' => '',
         ];
 
-        $this->json("post", "/api/v1/topic/suggest?api_token=" . $this->apiGateway->getValidTestUserToken(), $topic);
+        $this->json('post', '/api/v1/topic/suggest?api_token='.$this->apiGateway->getValidTestUserToken(), $topic);
 
         $this->assertResponseStatus(422);
     }
